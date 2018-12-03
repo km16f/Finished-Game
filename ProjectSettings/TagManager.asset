@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Floor
+  - ShowText
+  - Hiding
+  - enemy
+  - Death
+  - Weapon
+  - Win
+  - Key
+  - End
+  - WinTxt
+  - Inventory
+  - Interact
+  - RoomChange1
+  - RoomChange2
+  - Roomchange3
+  - TxtBox
+  - FaceAway
+  - Canvas
+  - NoMoveTxt
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 4116702269
+    locked: 0
+  - name: MidGround
+    uniqueID: 220362429
+    locked: 0
+  - name: ForeGround
+    uniqueID: 2660687051
+    locked: 0
+  - name: UI
+    uniqueID: 1588340137
+    locked: 0
