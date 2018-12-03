@@ -8,6 +8,7 @@ using UnityEditor;
 
 public class PlayerController : MonoBehaviour
 {
+   public string scene;
 
     public float speed, sideMovement = 0.0f;
     private Rigidbody2D control;
@@ -22,7 +23,9 @@ public class PlayerController : MonoBehaviour
     public Image item;
     public int time;
    public Sprite back, normal;
-    
+
+    bool armed;
+    bool keyed;
  
     //public int s;
 
@@ -108,16 +111,19 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.CompareTag("RoomChange1"))
         {
+            scene = "scene2";
             SceneManager.LoadScene(3);
         }
 
         if (other.gameObject.CompareTag("RoomChange2"))
         {
+            scene = "scene3";
             SceneManager.LoadScene(4);
         }
 
         if (other.gameObject.CompareTag("Roomchange3"))
         {
+            scene = "scene 4";
             SceneManager.LoadScene(5);
         }
 

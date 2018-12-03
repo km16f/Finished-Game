@@ -33,6 +33,7 @@ public class PickupItem : MonoBehaviour {
                 gameObject.GetComponent<SpriteRenderer>().enabled = true;
             }
 
+            gameObject.transform.position = player.gameObject.transform.position;
             Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), player.GetComponent<Collider2D>());
             if (player.transform.localScale.x > 0)
             {

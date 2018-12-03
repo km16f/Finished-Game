@@ -1,17 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour {
-
    
-    public float fhealth;
+    public int fhealth;
     float damaged;
-    public GameObject player;
+    //public GameObject player;
     public GameObject[] list;
    public bool inZone, isAlive;
     public SpriteRenderer temp;
     public bool thishide = false;
+    Vector3 pos;
     
 
 	void Start ()
@@ -19,7 +20,8 @@ public class Health : MonoBehaviour {
 
         thishide = gameObject.GetComponent<PlayerController>().isHiding;
         fhealth = 100;
-        isAlive = true;
+            isAlive = true;
+        pos = gameObject.transform.position;
 	}
 	
 	
@@ -30,39 +32,38 @@ public class Health : MonoBehaviour {
             thishide = gameObject.GetComponent<PlayerController>().isHiding;
             if (fhealth <= 0)
             {
+                Debug.Log("wrong one");
                 isAlive = false;
                 gameObject.transform.Rotate(0, 0, 90);
                 gameObject.GetComponent<PlayerController>().speed = 0;
                 float t1, t2;
                 t1 = gameObject.transform.position.x;
-                t2 = gameObject.transform.position.y - 0.5f;
+                t2 = gameObject.transform.position.y - 0.9f;
                 gameObject.transform.position = new Vector3(t1, t2, gameObject.transform.position.z);
-                gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+                //gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
 
             }
         }
-        else if(!isAlive)
+
+        if (!isAlive)
         {
             gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
             
             if(Input.GetKeyDown("r"))
             {
-                respawn();
+                Respawn();
             }
         }
     }
 
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        
-    }
 
-    void respawn()
+
+    void Respawn()
     {
         fhealth = 100;
         isAlive = true;
         gameObject.transform.Rotate(0, 0, -90);
-        gameObject.transform.position = new Vector3(1.73f, 1.74f, 0);
-        gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+        gameObject.transform.position = pos;
+        gameObject.GetComponent<PlayerController>().speed = 10;
     }
 }
