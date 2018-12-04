@@ -40,6 +40,7 @@ public class Health : MonoBehaviour {
                 t1 = gameObject.transform.position.x;
                 t2 = gameObject.transform.position.y - 0.9f;
                 gameObject.transform.position = new Vector3(t1, t2, gameObject.transform.position.z);
+                //gameObject.GetComponent<PlayerController>().s = PlayerController.State.Dead;
                 //gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
 
             }
@@ -65,5 +66,6 @@ public class Health : MonoBehaviour {
         gameObject.transform.Rotate(0, 0, -90);
         gameObject.transform.position = pos;
         gameObject.GetComponent<PlayerController>().speed = 10;
+       // gameObject.GetComponent<PlayerController>().s = PlayerController.State.Standing;
     }
 }

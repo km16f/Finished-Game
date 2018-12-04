@@ -23,6 +23,13 @@ TagManager:
   - FaceAway
   - Canvas
   - NoMoveTxt
+  - safe
+  - RoomChange4
+  - RoomChange5
+  - RoomChange6
+  - RoomChange7
+  - Dialog 1
+  - Dialog2
   layers:
   - Default
   - TransparentFX

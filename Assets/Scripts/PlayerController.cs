@@ -3,34 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEditor;
+
 
 
 public class PlayerController : MonoBehaviour
 {
    public string scene;
-
+    
     public float speed, sideMovement = 0.0f;
     private Rigidbody2D control;
     public float jumpforce;
     bool ground;
-    bool faceRight = true;
-    public Animator animate;
+    bool faceRight;
+    Vector3 spot,hidesafe;
+   // public Animator animate;
     public bool isHiding;
     int collisionnum = 0;
-    public GameObject player, temp,hide, txt;
+    public GameObject player, temp,hide, txt,safe,canvasLoad;
     bool inZone = false;
     public Image item;
     public int time;
    public Sprite back, normal;
 
-    bool armed;
-    bool keyed;
+    public bool armed;
+    public bool keyed;
  
     //public int s;
 
-    enum State { Standing, Walking, Jumping, Hiding, Attacking, Text };
-    State s;
+  public enum State { Standing, Walking, Jumping, Hiding, Attacking, Text, Dead };
+   public State s;
     //public Text wins;
 
     void Start()
@@ -39,8 +40,10 @@ public class PlayerController : MonoBehaviour
         speed = 10;
         s = 0;
         hide = GameObject.FindGameObjectWithTag("Hiding");
-        back = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/Sprites/Backwards_Down.png",typeof (Sprite));
-        normal = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/Sprites/Character5.png", typeof(Sprite));
+        safe = GameObject.FindGameObjectWithTag("safe");
+        canvasLoad = GameObject.FindGameObjectWithTag("Canvas");
+        faceRight = true;
+
     }
     
 
@@ -84,7 +87,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("FaceAway") && other.GetComponent<TextBox>().done == false)
         {
             txt = other.gameObject;
-            gameObject.GetComponent<SpriteRenderer>().sprite = back;
+            //gameObject.GetComponent<SpriteRenderer>().sprite = back;
             
             s = State.Text;
         }
@@ -107,24 +110,51 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.CompareTag("End"))
         {
             SceneManager.LoadScene(2);
+
         }
 
         if (other.gameObject.CompareTag("RoomChange1"))
         {
             scene = "scene2";
             SceneManager.LoadScene(3);
+
         }
 
         if (other.gameObject.CompareTag("RoomChange2"))
         {
             scene = "scene3";
             SceneManager.LoadScene(4);
+            DontDestroyOnLoad(canvasLoad);
         }
 
         if (other.gameObject.CompareTag("Roomchange3"))
         {
             scene = "scene 4";
             SceneManager.LoadScene(5);
+        }
+
+        if (other.gameObject.CompareTag("Roomchange4"))
+        {
+            scene = "scene 4";
+            SceneManager.LoadScene(6);
+        }
+
+        if (other.gameObject.CompareTag("Roomchange5"))
+        {
+            scene = "scene 4";
+            SceneManager.LoadScene(6);
+        }
+
+        if (other.gameObject.CompareTag("Roomchange6"))
+        {
+            scene = "scene 4";
+            SceneManager.LoadScene(7);
+        }
+
+        if (other.gameObject.CompareTag("Roomchange7"))
+        {
+            scene = "scene 4";
+            SceneManager.LoadScene(8);
         }
 
         if (other.gameObject.CompareTag("Win"))
@@ -134,9 +164,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
     void Hiding()
     {
-
         if (inZone == true && isHiding == false)
         {
             if (Input.GetKeyDown("w"))
@@ -145,6 +175,7 @@ public class PlayerController : MonoBehaviour
                 isHiding = true;
                 gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
                 gameObject.transform.position = hide.gameObject.transform.position;
+                gameObject.GetComponent<PolygonCollider2D>().enabled = false;
 
             }
         }
@@ -156,6 +187,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown("w"))
             {
                 gameObject.GetComponent<SpriteRenderer>().enabled = true;
+                gameObject.GetComponent<PolygonCollider2D>().enabled = false;
                 isHiding = false;
             }
         }
@@ -175,21 +207,26 @@ public class PlayerController : MonoBehaviour
         {
             case State.Walking:
                 {
-                    gameObject.GetComponent<SpriteRenderer>().sprite = normal;
-                    
+
+                    //animate.SetBool("Walk", true);
+                       
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
                         s = State.Jumping;
                         Jump();
                     }
 
+                    if(armed && Input.GetMouseButtonDown(0))
+                    {
+                        s = State.Attacking;
+                    }
+
                     sideMovement = Input.GetAxis("Horizontal") * speed;
-                    if (sideMovement == 0) { animate.SetBool("KeyDown", false); }
-                    else { animate.SetBool("KeyDown", true); }
+                    //if (sideMovement == 0) { animate.SetBool("KeyDown", false); }
+                    //else { animate.SetBool("KeyDown", true); }
 
                     control.velocity = new Vector2(sideMovement, control.velocity.y);
 
-                    animate.SetFloat("Speed", Mathf.Abs(sideMovement));
 
                     if (sideMovement < 0 && faceRight == true)
                     {
@@ -216,28 +253,28 @@ public class PlayerController : MonoBehaviour
                 }
             case State.Standing:
                 {
-                    
+                    //animate.SetBool("Stand", true);
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
                         s = State.Jumping;
                         Jump();
                     }
 
+                    if (armed && Input.GetMouseButtonDown(0))
+                    {
+                        s = State.Attacking;
+                    }
                     sideMovement = Input.GetAxis("Horizontal") * speed;
 
                     control.velocity = new Vector2(sideMovement, control.velocity.y);
-                    animate.SetFloat("Speed", Mathf.Abs(sideMovement));
+                    //animate.SetFloat("Speed", Mathf.Abs(sideMovement));
 
-                    if (sideMovement == 0)
+                   if(Input.GetKeyDown("d"))
                     {
-                        animate.SetBool("KeyDown", false);
-                        s = State.Standing;
-                    }
-                    else
-                    {
-                        animate.SetBool("KeyDown", true);
+                        Debug.Log("not in her");
                         s = State.Walking;
                     }
+
                     if (inZone == true && isHiding == false)
                     {
                         if (Input.GetKeyDown("w"))
@@ -256,6 +293,11 @@ public class PlayerController : MonoBehaviour
 
             case State.Hiding:
                 {
+                   
+                    gameObject.GetComponent<PolygonCollider2D>().enabled = false;
+                    gameObject.GetComponent<Rigidbody2D>().isKinematic= true;
+
+                    gameObject.transform.position = safe.transform.position;
                     if (inZone == true && isHiding == true)
                     {
 
@@ -263,6 +305,9 @@ public class PlayerController : MonoBehaviour
                         {
                             gameObject.GetComponent<SpriteRenderer>().enabled = true;
                             isHiding = false;
+                            gameObject.GetComponent<PolygonCollider2D>().enabled = true;
+                            gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+                            
                             s = State.Standing;
                         }
                     }
@@ -270,25 +315,30 @@ public class PlayerController : MonoBehaviour
                 }
             case State.Jumping:
                 {
-                    
+                   // animate.SetBool("Hide", true);
                     if (ground == true)
                     {
                         s = State.Standing;
                     }
 
+                    if (armed && Input.GetMouseButtonDown(0))
+                    {
+                        s = State.Attacking;
+                    }
+
                     sideMovement = Input.GetAxis("Horizontal") * speed;
 
                     control.velocity = new Vector2(sideMovement, control.velocity.y);
-                    animate.SetFloat("Speed", Mathf.Abs(sideMovement));
+                    //animate.SetFloat("Speed", Mathf.Abs(sideMovement));
 
                     if (sideMovement == 0)
                     {
-                        animate.SetBool("KeyDown", false);
+                        //animate.SetBool("KeyDown", false);
                         s = State.Standing;
                     }
                     else
                     {
-                        animate.SetBool("KeyDown", true);
+                       // animate.SetBool("KeyDown", true);
                         s = State.Walking;
                     }
 
@@ -309,7 +359,12 @@ public class PlayerController : MonoBehaviour
 
             case State.Attacking:
                 {
-                    
+                   // animate.SetBool("Attack", true);
+                    if (Input.GetKeyDown("a") || Input.GetKeyDown("d"))
+                    {
+                        s = State.Walking;
+                    }
+                    //animate.Play("Attack");
                     break;
                 }
 
@@ -323,6 +378,13 @@ public class PlayerController : MonoBehaviour
                     {
                         s = State.Standing;
                     }
+
+                    break;
+                }
+            case State.Dead:
+                {
+                    //animate.SetBool("Dead", true);
+
 
                     break;
                 }

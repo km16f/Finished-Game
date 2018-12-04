@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraSetup.cs" />
+    <Compile Include="Assets\Scripts\Cutscene1.cs" />
     <Compile Include="Assets\Scripts\DeathScreen.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\Health.cs" />
