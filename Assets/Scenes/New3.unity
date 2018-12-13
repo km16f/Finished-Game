@@ -287,6 +287,12 @@ Prefab:
       propertyPath: s
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114253557629003418, guid: 4f5b28de1e102a94d88a802ca3ac9f45,
+        type: 2}
+      propertyPath: bloodParticles
+      value: 
+      objectReference: {fileID: 1233208254371254, guid: 5f5185017b8071343a2e36dc2494680e,
+        type: 2}
     m_RemovedComponents:
     - {fileID: 95910681584790294, guid: 4f5b28de1e102a94d88a802ca3ac9f45, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 4f5b28de1e102a94d88a802ca3ac9f45, type: 2}
@@ -427,6 +433,11 @@ Prefab:
     - target: {fileID: 1909523473389006, guid: 36ba73ab31398af499343a33bfb1859e, type: 2}
       propertyPath: m_Name
       value: Key Sprite (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 212552876333803450, guid: 36ba73ab31398af499343a33bfb1859e,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36ba73ab31398af499343a33bfb1859e, type: 2}

@@ -9,6 +9,7 @@ public class Health : MonoBehaviour {
     float damaged;
     //public GameObject player;
     public GameObject[] list;
+    public GameObject bloodParticles;
    public bool inZone, isAlive;
     public SpriteRenderer temp;
     public bool thishide = false;
@@ -40,6 +41,7 @@ public class Health : MonoBehaviour {
                 t1 = gameObject.transform.position.x;
                 t2 = gameObject.transform.position.y - 0.9f;
                 gameObject.transform.position = new Vector3(t1, t2, gameObject.transform.position.z);
+                Instantiate(bloodParticles, gameObject.transform.position, gameObject.transform.rotation);
                 //gameObject.GetComponent<PlayerController>().s = PlayerController.State.Dead;
                 //gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
 
@@ -49,6 +51,7 @@ public class Health : MonoBehaviour {
         if (!isAlive)
         {
             gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+            
             
             if(Input.GetKeyDown("r"))
             {

@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour {
         {
             if (Vector3.Distance(gameObject.transform.position, player.gameObject.transform.position) < 10)
             {
-                baddie.velocity = new Vector3(-1f, 0, 0);
+                baddie.velocity = new Vector3(-3f, 0, 0);
             }
         }
         else
@@ -55,6 +55,11 @@ public class Enemy : MonoBehaviour {
         }
         hehide = player.GetComponent<Health>().thishide;
         ispress = false;
+
+        if(!mealive)
+        {
+            Destroy(gameObject, 4);
+        }
 
         if (player.gameObject.GetComponent<Health>().isAlive == false)
         {

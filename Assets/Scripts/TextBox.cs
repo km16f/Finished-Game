@@ -36,6 +36,10 @@ public class TextBox : MonoBehaviour {
     }
 
     void Start () {
+        for(int i =0; i < textlines.Length; i++)
+        {
+            textlines[i] = null;
+        }
         canvas = GameObject.FindGameObjectWithTag("TxtBox");
         canvas.gameObject.GetComponentInChildren<Image>().enabled = false;
         canvas.gameObject.GetComponentInChildren<Text>().enabled = false;
@@ -70,7 +74,7 @@ public class TextBox : MonoBehaviour {
 
         if(Input.GetMouseButtonDown(0))
         {
-            if (currentLine != endAtLine)
+            if (currentLine < endAtLine)
             {
                 currentLine++;
             }

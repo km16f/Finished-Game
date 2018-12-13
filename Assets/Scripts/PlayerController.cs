@@ -57,6 +57,21 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene(0);
             collisionnum = 0;
         }*/
+
+        if(Input.GetKeyDown("j"))
+        {
+            SceneManager.LoadScene(6);
+        }
+
+        if (Input.GetKeyDown("m"))
+        {
+            SceneManager.LoadScene(1);
+        }
+
+        if (Input.GetKeyDown("l"))
+        {
+            SceneManager.LoadScene(8);
+        }
     }
 
 
@@ -124,7 +139,7 @@ public class PlayerController : MonoBehaviour
         {
             scene = "scene3";
             SceneManager.LoadScene(4);
-            DontDestroyOnLoad(canvasLoad);
+            
         }
 
         if (other.gameObject.CompareTag("Roomchange3"))
@@ -133,35 +148,21 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene(5);
         }
 
-        if (other.gameObject.CompareTag("Roomchange4"))
-        {
-            scene = "scene 4";
-            SceneManager.LoadScene(6);
-        }
-
-        if (other.gameObject.CompareTag("Roomchange5"))
-        {
-            scene = "scene 4";
-            SceneManager.LoadScene(6);
-        }
-
-        if (other.gameObject.CompareTag("Roomchange6"))
+        if (other.gameObject.CompareTag("RoomChange4"))
         {
             scene = "scene 4";
             SceneManager.LoadScene(7);
         }
-
-        if (other.gameObject.CompareTag("Roomchange7"))
+        
+        if (other.gameObject.CompareTag("RoomChange5"))
         {
             scene = "scene 4";
             SceneManager.LoadScene(8);
         }
 
-        if (other.gameObject.CompareTag("Win"))
-        {
-            temp = GameObject.FindWithTag("WinTxt");
-            temp.gameObject.GetComponent<Canvas>().enabled = true;
-        }
+        
+
+       
     }
 
 
